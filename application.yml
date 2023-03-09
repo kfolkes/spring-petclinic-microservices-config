@@ -75,19 +75,24 @@ spring:
   config:
     activate:
       on-profile: mysql
-  sql.init.mode: always
-  sql.init.platform: mysql
-  datasource:
-    schema: classpath*:db/mysql/schema.sql
-    data: classpath*:db/mysql/data.sql
-     url: jdbc:mysql://krfolkespetdb.mysql.database.azure.com:3306/pets?useSSL=true  
-	   initialization-mode: ALWAYS
-   cloud:
-       azure:
-         keyvault:
-           secret:
-             property-source-enabled: true
-             property-sources:
-               - name: key-vault-property-source-1
-                 endpoint: https://petrkool.vault.azure.net/
-                 credential.managed-identity-enabled: true
+      jms:
+       servicebus:
+         connection-string: ${spring.jms.servicebus.connection-string}
+         idle-timeout: 60000
+         pricing-tier: premium
+      sql.init.mode: always
+      sql.init.platform: mysql
+      datasource:
+        schema: classpath*:db/mysql/schema.sql
+        data: classpath*:db/mysql/data.sql
+        url: jdbc:mysql://krfolkespetdb.mysql.database.azure.com:3306/pets?useSSL=true  
+        initialization-mode: ALWAYS
+      cloud:
+          azure:
+            keyvault:
+              secret:
+                property-source-enabled: true
+                property-sources:
+                  - name: key-vault-property-source-1
+                    endpoint: https://petrkool.vault.azure.net/
+                    credential.managed-identity-enabled: true
