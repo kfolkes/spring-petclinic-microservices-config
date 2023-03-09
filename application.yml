@@ -81,6 +81,13 @@ spring:
     schema: classpath*:db/mysql/schema.sql
     data: classpath*:db/mysql/data.sql
      url: jdbc:mysql://krfolkespetdb.mysql.database.azure.com:3306/pets?useSSL=true  
-		 username: krfolkes  
-		 password: @Maxxie652
-    initialization-mode: ALWAYS
+	   initialization-mode: ALWAYS
+   cloud:
+       azure:
+         keyvault:
+           secret:
+             property-source-enabled: true
+             property-sources:
+               - name: key-vault-property-source-1
+                 endpoint: https://petrkool.vault.azure.net/
+                 credential.managed-identity-enabled: true
